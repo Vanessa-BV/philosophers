@@ -6,21 +6,26 @@
 #    By: vbusekru <vbusekru@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/05/17 14:50:07 by vbusekru      #+#    #+#                  #
-#    Updated: 2024/05/17 14:50:07 by vbusekru      ########   odam.nl          #
+#    Updated: 2024/07/31 21:45:00 by vbusekru      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread #-TSAN_OPTIONS=second_deadlock_stack=1
 
 RM = rm -f
 
-SOURCE =	main.c \
-			input_to_integers.c \
-			free_error_utils.c \
+SOURCE =	1_main.c \
+			2_input_check.c \
+			3_init_data.c \
+			4_mutexes_threads.c \
+			5_actions.c \
+			6_monitor.c \
+			7_utils.c \
+			8_print_messages.c \
 
 OBJECTS = $(SOURCE:%.c=$(OBJS_DIR)/%.o)
 
