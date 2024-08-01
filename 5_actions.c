@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 15:45:24 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 15:42:01 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 15:55:42 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void take_forks(t_philo *philo)
     if (philo->id % 2 == 0)
 		ft_usleep(1, philo);
 	pthread_mutex_lock(philo->fork1);
-	if (dead_loop(philo) != 0)
+	if (dead_loop(philo) != true)
 		action_msg("has taken a fork", philo, philo->id);
 	pthread_mutex_lock(philo->fork2);
-	if (dead_loop(philo) != 0)
+	if (dead_loop(philo) != true)
 		action_msg("has taken a fork", philo, philo->id);
 	routine(philo);
 }

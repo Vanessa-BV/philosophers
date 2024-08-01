@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 14:42:31 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 13:25:23 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 15:53:53 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_usleep(int ms_for_action, t_philo *philo)
 	long	goal_time;
 
 	goal_time = timestamp_in_ms() + ms_for_action;
-	while (timestamp_in_ms() < goal_time && dead_loop(philo) != 0)
+	while (timestamp_in_ms() < goal_time && dead_loop(philo) != true)
 		usleep(500);
 }
 
