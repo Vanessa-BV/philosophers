@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 15:45:24 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 13:01:06 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 15:42:01 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	routine(t_philo *philo)
 	ft_usleep(philo->info->t_sleep, philo);
 	if (dead_loop(philo) != true)
 	action_msg("is thinking", philo, philo->id);
+	ft_usleep(1, philo); // not sure if necessary
 }
 
 void take_forks(t_philo *philo)

@@ -17,6 +17,7 @@ bool	philo_starves(t_philo *philo) // to be returned to actions.c possibly later
 	long	current_time;
 
 	current_time = timestamp_in_ms();
+    ft_usleep(2, philo); // not sure if necessary
 	pthread_mutex_lock(philo->meal_lock);
 	if (current_time - philo->last_meal_time >= (long)philo->info->t_die)
 	{

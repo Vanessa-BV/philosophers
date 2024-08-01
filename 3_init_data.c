@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/25 17:04:15 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 13:23:17 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 14:59:56 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	fork_assignment(t_philo *philos, t_info *info, pthread_mutex_t *forks, int 
 {
 	if (i == 0)
 	{
-		philos[i].fork1 = &forks[0];
-		philos[i].fork2 = &forks[info->numb_philos - 1];
+		philos[i].fork1 = &forks[info->numb_philos - 1];
+		philos[i].fork2 = &forks[0];
 	}
 	else if (i % 2 == 0)
 	{
