@@ -32,7 +32,8 @@ int dead_flag_check(t_philo *philos)
     int i;
 
     i = 0;
-    while (i < philos->info->numb_philos) {
+    while (i < philos->info->numb_philos)
+    {
         if (philo_starves(&philos[i]) == 0) {
             pthread_mutex_lock(&philos->info->dead_lock);
             philos->info->dead_flag = 1;

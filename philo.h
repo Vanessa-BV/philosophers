@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/17 14:52:56 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/07/31 21:43:59 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 10:38:43 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_philo
 	pthread_mutex_t			*fork1;
 	pthread_mutex_t			*fork2;
 	pthread_mutex_t			*output_lock;
-	pthread_mutex_t			*dead_lock;
 	pthread_mutex_t			*meal_lock;
 	struct s_info	*info;
 } t_philo;
@@ -76,7 +75,6 @@ long	sim_time(long start_time);
 
 // Print messages 
 void	error_msg(int error_number);
-//void	action_msg(int msg_number, long timestamp, t_philo *philos, int id);
 void	action_msg(char *message, t_philo *philos, int id);
 
 // Threads
@@ -86,7 +84,6 @@ void	*philo_thread(void *arg);
 // Monitoring
 void	*monitor(void *arg);
 int		dead_flag_check(t_philo *philos);
-//void		dead_flag_check(t_philo *philos);
 int		all_philos_ate(t_philo *philos);
 int		dead_loop(t_philo *philos);
 int		philo_starves(t_philo *philos);
@@ -96,8 +93,9 @@ int		philo_starves(t_philo *philos);
 
 //Actions (eat, sleep, think)
 // int		philo_dies(t_philo *philo);
-void	eat_sleep_think(t_philo *philo);
 void	routine(t_philo *philo);
 void	one_philo(t_philo *philo);
+void	take_forks(t_philo *philo);
+void	put_forks(t_philo *philo);
 
 #endif

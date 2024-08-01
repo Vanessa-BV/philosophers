@@ -35,7 +35,7 @@ void	*philo_thread(void *arg)
 		return (NULL);
 	}
 	while (dead_loop(philo) != 0)
-		eat_sleep_think(philo);
+		take_forks(philo);
 	return (NULL);
 }
 
@@ -86,7 +86,13 @@ int	threads(t_info *info)
 	while (i < info->numb_philos)
 	{
 		if (pthread_create(&info->philos[i].thread, NULL, &philo_thread, &info->philos[i]) != 0)
-			return(error_msg(4), -1);
+		{
+			while (--i > 0)
+			{
+				pthread_join(info->philos[i - 1].thread, NULL);
+				return(error_msg(4), -1);
+			}
+		}
 		i++;
 	}
 	i = 0;

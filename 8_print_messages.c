@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/18 15:48:29 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/07/31 19:06:31 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 10:43:34 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	error_msg(int error_number)
 		printf("Error: Could not join threads.\n");
 }
 
-void	action_msg(char *message, t_philo *philos, int id) //include output lock and usleep here or create a new functioin  -- !!!!! send string directly to function instead of message number
+void	action_msg(char *message, t_philo *philos, int id)
 {
 	pthread_mutex_lock(&philos->info->output_lock);
 	printf("%zu: philo %d %s\n", sim_time(philos->start_time), id, message);

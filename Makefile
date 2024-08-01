@@ -6,7 +6,7 @@
 #    By: vbusekru <vbusekru@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/05/17 14:50:07 by vbusekru      #+#    #+#                  #
-#    Updated: 2024/07/31 21:45:00 by vbusekru      ########   odam.nl          #
+#    Updated: 2024/08/01 10:18:42 by vbusekru      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread #-TSAN_OPTIONS=second_deadlock_stack=1
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread #-TSAN_OPTIONS=second_deadlock_stack=1
 
 RM = rm -f
 
