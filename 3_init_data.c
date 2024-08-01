@@ -6,13 +6,13 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/25 17:04:15 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/07/31 21:40:05 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 13:23:17 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_info(t_info *info, t_philo *philos, int argc, char **argv)
+bool	init_info(t_info *info, t_philo *philos, int argc, char **argv)
 {
 	info->numb_philos = ft_atoi(argv[1]);
 	info->t_die = ft_atoi(argv[2]);
@@ -25,15 +25,15 @@ int	init_info(t_info *info, t_philo *philos, int argc, char **argv)
 	if (info->numb_philos == -1 || info->t_die == -1 \
 	|| info->t_eat == -1 || info->t_sleep == -1 \
 	|| info->numb_of_meals == -1)
-		return (error_msg(2), -1);
+		return (error_msg(2), false);
 	info->dead_flag = 0;
 	info->philos = philos;
-	if (init_mutexes(info) == -1)
-		return (error_msg(5), -1);
-	return (0);
+	if (init_mutexes(info) == false)
+		return (error_msg(5), false);
+	return (true);
 }
 
-int	init_forks(pthread_mutex_t *forks, t_info *info)
+bool	init_forks(pthread_mutex_t *forks, t_info *info)
 {
 	int	i;
 
@@ -48,11 +48,11 @@ int	init_forks(pthread_mutex_t *forks, t_info *info)
 				pthread_mutex_destroy(&forks[i]);
 			}
 			destroy_mutexes(info, NULL);
-			return (error_msg(5), -1);
+			return (error_msg(5), false);
 		}
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
 void	fork_assignment(t_philo *philos, t_info *info, pthread_mutex_t *forks, int i)
@@ -74,7 +74,7 @@ void	fork_assignment(t_philo *philos, t_info *info, pthread_mutex_t *forks, int 
 	}
 }
 
-int	init_philos(t_philo *philos, t_info *info, pthread_mutex_t *forks)
+void	init_philos(t_philo *philos, t_info *info, pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -91,5 +91,4 @@ int	init_philos(t_philo *philos, t_info *info, pthread_mutex_t *forks)
 		fork_assignment(philos, info, forks, i);
 		i++;
 	}
-	return (0);
 }

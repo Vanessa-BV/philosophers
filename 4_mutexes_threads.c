@@ -34,27 +34,27 @@ void	*philo_thread(void *arg)
 		one_philo(philo);
 		return (NULL);
 	}
-	while (dead_loop(philo) != 0)
+	while (dead_loop(philo) != true)
 		take_forks(philo);
 	return (NULL);
 }
 
-int	init_mutexes(t_info *info)
+bool	init_mutexes(t_info *info)
 {
 	if (pthread_mutex_init(&info->dead_lock, NULL) != 0)
-		return (-1);
+		return (false);
 	if (pthread_mutex_init(&info->meal_lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&info->dead_lock);
-		return (-1);
+		return (false);
 	}
 	if (pthread_mutex_init(&info->output_lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&info->dead_lock);
 		pthread_mutex_destroy(&info->meal_lock);
-		return (-1);
+		return (false);
 	}
-	return (0);
+	return (true);
 }
 
 void	destroy_mutexes(t_info *info, pthread_mutex_t *forks)
@@ -75,13 +75,13 @@ void	destroy_mutexes(t_info *info, pthread_mutex_t *forks)
 	}
 }
 
-int	threads(t_info *info)
+bool	threads(t_info *info)
 {
 	pthread_t	monitoring;
 	int			i;
 
 	if (pthread_create(&monitoring, NULL, &monitor, info->philos) != 0)
-		return (error_msg(4), -1);
+		return (error_msg(4), false);
 	i = 0;
 	while (i < info->numb_philos)
 	{
@@ -90,19 +90,19 @@ int	threads(t_info *info)
 			while (--i > 0)
 			{
 				pthread_join(info->philos[i - 1].thread, NULL);
-				return(error_msg(4), -1);
+				return(error_msg(4), false);
 			}
 		}
 		i++;
 	}
 	i = 0;
 	if (pthread_join(monitoring, NULL) != 0)
-		return (error_msg(6), -1);
+		return (error_msg(6), false);
 	while (i < info->numb_philos)
 	{
 		if (pthread_join(info->philos[i].thread, NULL) != 0)
-			return (error_msg(6), -1);
+			return (error_msg(6), false);
 		i++;
 	}
-	return (0);
+	return (true);
 }

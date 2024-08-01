@@ -1,18 +1,18 @@
 #include "philo.h"
 
-int dead_loop(t_philo *philo)
+bool dead_loop(t_philo *philo)
 {
     pthread_mutex_lock(&philo->info->dead_lock);
     if (philo->info->dead_flag == 1)
 	{
         pthread_mutex_unlock(&philo->info->dead_lock);
-        return (0);
+        return (true);
     }
     pthread_mutex_unlock(&philo->info->dead_lock);
-    return (-1);
+    return (false);
 }
 
-int	philo_starves(t_philo *philo) // to be returned to actions.c possibly later on
+bool	philo_starves(t_philo *philo) // to be returned to actions.c possibly later on
 {
 	long	current_time;
 
@@ -21,32 +21,33 @@ int	philo_starves(t_philo *philo) // to be returned to actions.c possibly later 
 	if (current_time - philo->last_meal_time >= (long)philo->info->t_die)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
-		return (0);
+		return (true);
 	}
 	pthread_mutex_unlock(philo->meal_lock);
-	return (-1);
+	return (false);
 }
 
-int dead_flag_check(t_philo *philos)
+bool dead_flag_check(t_philo *philos)
 {
     int i;
 
     i = 0;
     while (i < philos->info->numb_philos)
     {
-        if (philo_starves(&philos[i]) == 0) {
+        if (philo_starves(&philos[i]) == true)
+        {
             pthread_mutex_lock(&philos->info->dead_lock);
             philos->info->dead_flag = 1;
             pthread_mutex_unlock(&philos->info->dead_lock);
             action_msg("died", &philos[i], philos[i].id);
-            return (0);
+            return (true);
         }
         i++;
     }
-    return (-1);
+    return (false);
 }
 
-int	all_philos_ate(t_philo *philos)
+bool	all_philos_ate(t_philo *philos)
 {
 	int i;
 	int	numb_philos_finished_eating;
@@ -66,9 +67,9 @@ int	all_philos_ate(t_philo *philos)
         pthread_mutex_lock(&philos->info->dead_lock);
 		philos->info->dead_flag = 1;
         pthread_mutex_unlock(&philos->info->dead_lock);
-		return (0);
+		return (true);
 	}
-	return (-1);
+	return (false);
 }
 
 void	*monitor(void *arg)
@@ -77,7 +78,7 @@ void	*monitor(void *arg)
     philos = (t_philo *)arg;
     while(1)
     {
-        if (all_philos_ate(philos) == 0 || dead_flag_check(philos) == 0)
+        if (all_philos_ate(philos) == true || dead_flag_check(philos) == true)
             break;
         usleep(1000);
     }

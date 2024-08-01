@@ -1,41 +1,41 @@
 #include "philo.h"
 
-int	input_is_digit(char *str)
+bool	input_is_digit(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isdigit(str[i]) == -1)
-			return (-1);
+		if (ft_isdigit(str[i]) == false)
+			return (false);
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
-int	input_within_int_range(int argc, char **argv)
+bool	input_within_int_range(int argc, char **argv)
 {
 	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[1]) > MAX_PHILOS
-		||ft_atoi(argv[2]) < MIN_TIME || ft_atoi(argv[2]) > INT_MAX
-		|| ft_atoi(argv[3]) < MIN_TIME || ft_atoi(argv[3]) > INT_MAX
-		|| ft_atoi(argv[4]) < MIN_TIME || ft_atoi(argv[4]) > INT_MAX)
-		return (-1);
+		|| ft_atoi(argv[2]) < 0 || ft_atoi(argv[2]) > INT_MAX
+		|| ft_atoi(argv[3]) < 0 || ft_atoi(argv[3]) > INT_MAX
+		|| ft_atoi(argv[4]) < 0 || ft_atoi(argv[4]) > INT_MAX)
+		return (false);
 	if (argc == 6)
 	{
 		if (ft_atoi(argv[5]) < 0 || ft_atoi(argv[5]) > INT_MAX)
-			return (-1);
+			return (false);
 	}
-	return (0);
+	return (true);
 }
 
-int	input_check(int argc, char **argv)
+bool	input_check(int argc, char **argv)
 {
-	if (input_is_digit(argv[1]) == -1 || input_is_digit(argv[2]) == -1 \
-		|| input_is_digit(argv[3]) == -1 || input_is_digit(argv[4]) == -1 \
-		|| (argc == 6 && input_is_digit(argv[5]) == -1))
-		return (error_msg(2), -1);
-	if (input_within_int_range(argc, argv) == -1)
-		return (error_msg(2), -1);
-	return (0);
+	if (input_is_digit(argv[1]) == false || input_is_digit(argv[2]) == false \
+		|| input_is_digit(argv[3]) == false || input_is_digit(argv[4]) == false \
+		|| (argc == 6 && input_is_digit(argv[5]) == false))
+		return (error_msg(2), false);
+	if (input_within_int_range(argc, argv) == false)
+		return (error_msg(2), false);
+	return (true);
 }

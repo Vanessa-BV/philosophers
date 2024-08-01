@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/17 14:52:56 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 12:08:27 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 13:21:14 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # define MAX_PHILOS 200
-# define MIN_TIME 60
 
 typedef struct s_philo
 {
@@ -52,23 +52,23 @@ typedef struct s_info
 } t_info;
 
 // Data verification
-int			input_check(int argc, char **argv);
-int			input_within_int_range(int argc, char **argv);
+bool		input_check(int argc, char **argv);
+bool		input_within_int_range(int argc, char **argv);
 
 // Data initialization
-int		init_info(t_info *info, t_philo *philos, int argc, char **argv);
-int		init_forks(pthread_mutex_t *forks, t_info *info);
-int		init_philos(t_philo *philos, t_info *info, \
+bool		init_info(t_info *info, t_philo *philos, int argc, char **argv);
+bool		init_forks(pthread_mutex_t *forks, t_info *info);
+void		init_philos(t_philo *philos, t_info *info, \
 			pthread_mutex_t *forks);
 
 // Mutexes
-int		init_mutexes(t_info *info);
+bool		init_mutexes(t_info *info);
 void	destroy_mutexes(t_info *info, pthread_mutex_t *forks);
 
 // Utils
 int		ft_atoi(char *str);
-int		input_is_digit(char *str);
-int		ft_isdigit(char c);
+bool	input_is_digit(char *str);
+bool	ft_isdigit(char c);
 long	timestamp_in_ms(void);
 void	ft_usleep(int ms_for_action, t_philo *philo);
 long	sim_time(long start_time);
@@ -78,15 +78,15 @@ void	error_msg(int error_number);
 void	action_msg(char *message, t_philo *philos, int id);
 
 // Threads
-int		threads(t_info *info);
+bool	threads(t_info *info);
 void	*philo_thread(void *arg);
 
 // Monitoring
 void	*monitor(void *arg);
-int		dead_flag_check(t_philo *philos);
-int		all_philos_ate(t_philo *philos);
-int		dead_loop(t_philo *philos);
-int		philo_starves(t_philo *philos);
+bool	dead_flag_check(t_philo *philos);
+bool	all_philos_ate(t_philo *philos);
+bool	dead_loop(t_philo *philos);
+bool	philo_starves(t_philo *philos);
 // int		all_ate_or_philo_died(t_philo *philos);
 // int		philo_starving(t_philo *philo);
 

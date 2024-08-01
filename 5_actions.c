@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 15:45:24 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 12:06:48 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 13:01:06 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ void	routine(t_philo *philo)
 	philo->last_meal_time = timestamp_in_ms();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
-	if (dead_loop(philo) != 0)
+	if (dead_loop(philo) != true)
 		action_msg("is eating", philo, philo->id);
 	ft_usleep(philo->info->t_eat, philo);
 	put_forks(philo);
-	if (dead_loop(philo) != 0)
+	if (dead_loop(philo) != true)
 		action_msg("is sleeping", philo, philo->id);
 	ft_usleep(philo->info->t_sleep, philo);
-	if (dead_loop(philo) != 0)
+	if (dead_loop(philo) != true)
 	action_msg("is thinking", philo, philo->id);
 }
 
 void take_forks(t_philo *philo)
 {
-    // if (philo->id % 2 == 0)
-	// 	ft_usleep(1, philo);
+    if (philo->id % 2 == 0)
+		ft_usleep(1, philo);
 	pthread_mutex_lock(philo->fork1);
 	if (dead_loop(philo) != 0)
 		action_msg("has taken a fork", philo, philo->id);

@@ -6,18 +6,18 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 14:42:31 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 12:13:05 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 13:25:23 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isdigit(char c)
+bool	ft_isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
-		return (0);
+		return (true);
 	else
-		return (-1);
+		return (false);
 }
 
 int	ft_atoi(char *str)
@@ -37,7 +37,7 @@ int	ft_atoi(char *str)
 			sign = -1;
 		i++;
 	}
-	while (ft_isdigit(str[i]) == 0)
+	while (ft_isdigit(str[i]) == true)
 	{
 		number = number * 10 + (str[i] - '0');
 		if (number > INT_MAX)
