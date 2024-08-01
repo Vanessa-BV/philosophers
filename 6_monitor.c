@@ -57,7 +57,7 @@ int	all_philos_ate(t_philo *philos)
 		pthread_mutex_lock(philos[i].meal_lock);
 		if (philos[i].meals_eaten >= philos->info->numb_of_meals)
 			numb_philos_finished_eating++;
-		pthread_mutex_lock(philos[i].meal_lock);
+		pthread_mutex_unlock(philos[i].meal_lock);
 		i++;
 	}
 	if (numb_philos_finished_eating == philos->info->numb_philos)
