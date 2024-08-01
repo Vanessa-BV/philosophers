@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/18 15:48:29 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 10:43:34 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 12:35:33 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	error_msg(int error_number)
 void	action_msg(char *message, t_philo *philos, int id)
 {
 	pthread_mutex_lock(&philos->info->output_lock);
-	printf("%zu: philo %d %s\n", sim_time(philos->start_time), id, message);
+	printf("%zu %d %s\n", sim_time(philos->start_time), id, message);
 	pthread_mutex_unlock(&philos->info->output_lock);
 }

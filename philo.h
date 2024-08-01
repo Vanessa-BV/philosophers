@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/17 14:52:56 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 10:38:43 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 12:08:27 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		ft_atoi(char *str);
 int		input_is_digit(char *str);
 int		ft_isdigit(char c);
 long	timestamp_in_ms(void);
-int		ft_usleep(int ms_for_action, t_philo *philo);
+void	ft_usleep(int ms_for_action, t_philo *philo);
 long	sim_time(long start_time);
 
 // Print messages 

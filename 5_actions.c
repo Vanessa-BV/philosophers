@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 15:45:24 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/08/01 10:51:40 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 12:06:48 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,13 @@ void	routine(t_philo *philo)
 
 void take_forks(t_philo *philo)
 {
-    if (philo->id % 2 == 0)
-	{
-		ft_usleep(1, philo);
-        pthread_mutex_lock(philo->fork1);
-        if (dead_loop(philo) != 0)
-			action_msg("has taken a fork", philo, philo->id);
-        pthread_mutex_lock(philo->fork2);
-		if (dead_loop(philo) != 0)
-			action_msg("has taken a fork", philo, philo->id);
-    } 
-	else
-	{
-        pthread_mutex_lock(philo->fork1);
-		if (dead_loop(philo) != 0)
-			action_msg("has taken a fork", philo, philo->id);
-        pthread_mutex_lock(philo->fork2);
-		if (dead_loop(philo) != 0)
-			action_msg("has taken a fork", philo, philo->id);
-    }
+    // if (philo->id % 2 == 0)
+	// 	ft_usleep(1, philo);
+	pthread_mutex_lock(philo->fork1);
+	if (dead_loop(philo) != 0)
+		action_msg("has taken a fork", philo, philo->id);
+	pthread_mutex_lock(philo->fork2);
+	if (dead_loop(philo) != 0)
+		action_msg("has taken a fork", philo, philo->id);
 	routine(philo);
 }

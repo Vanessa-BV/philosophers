@@ -6,7 +6,7 @@
 /*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/26 14:42:31 by vbusekru      #+#    #+#                 */
-/*   Updated: 2024/07/31 21:44:28 by vbusekru      ########   odam.nl         */
+/*   Updated: 2024/08/01 12:13:05 by vbusekru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,13 @@ long	timestamp_in_ms(void)
 	return (time_in_milliseconds);
 }
 
-int	ft_usleep(int ms_for_action, t_philo *philo)
+void	ft_usleep(int ms_for_action, t_philo *philo)
 {
-	int	start;
+	long	goal_time;
 
-	start = timestamp_in_ms();
-	if (start == -1)
-		return (-1);
-	while ((timestamp_in_ms() - start) < (long)ms_for_action && dead_loop(philo) != 0)
+	goal_time = timestamp_in_ms() + ms_for_action;
+	while (timestamp_in_ms() < goal_time && dead_loop(philo) != 0)
 		usleep(500);
-	return (0);
 }
 
 long	sim_time(long start_time)

@@ -38,7 +38,7 @@ int dead_flag_check(t_philo *philos)
             pthread_mutex_lock(&philos->info->dead_lock);
             philos->info->dead_flag = 1;
             pthread_mutex_unlock(&philos->info->dead_lock);
-            action_msg("has died", &philos[i], philos[i].id);
+            action_msg("died", &philos[i], philos[i].id);
             return (0);
         }
         i++;
