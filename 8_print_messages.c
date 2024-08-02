@@ -31,7 +31,7 @@ void	error_msg(int error_number)
 		printf("Error: Could not create thread.\n");
 	else if (error_number == 5)
 		printf("Error: Could not initialize mutexes.\n");
-	else if(error_number == 6)
+	else if (error_number == 6)
 		printf("Error: Could not join threads.\n");
 }
 

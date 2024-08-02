@@ -1,32 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   4_mutexes_threads.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vbusekru <vbusekru@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/02 13:16:33 by vbusekru      #+#    #+#                 */
+/*   Updated: 2024/08/02 13:16:33 by vbusekru      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
-
-// void	*philo_thread(void *arg)
-// {
-// 	t_philo *philo;
-
-// 	philo = (t_philo *) arg;
-// 	if (philo->info->numb_philos == 1)
-// 	{
-// 		one_philo(philo);
-// 		return (NULL);
-// 	}
-// 	while (1)
-// 	{
-//         pthread_mutex_lock(&philo->info->dead_lock);
-//         if (philo->info->dead_flag == 1)
-//         {
-//             pthread_mutex_unlock(&philo->info->dead_lock);
-//             break;
-//         }
-//         pthread_mutex_unlock(&philo->info->dead_lock);
-//         eat_sleep_think(philo);
-// 	}
-// 	return (NULL);
-// }
 
 void	*philo_thread(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *) arg;
 	if (philo->info->numb_philos == 1)
@@ -85,14 +73,9 @@ bool	threads(t_info *info)
 	i = 0;
 	while (i < info->numb_philos)
 	{
-		if (pthread_create(&info->philos[i].thread, NULL, &philo_thread, &info->philos[i]) != 0)
-		{
-			while (--i > 0)
-			{
-				pthread_join(info->philos[i - 1].thread, NULL);
-				return(error_msg(4), false);
-			}
-		}
+		if (pthread_create(&info->philos[i].thread, NULL, \
+			&philo_thread, &info->philos[i]) != 0)
+			return (error_msg(4), false);
 		i++;
 	}
 	i = 0;

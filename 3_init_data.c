@@ -55,7 +55,8 @@ bool	init_forks(pthread_mutex_t *forks, t_info *info)
 	return (true);
 }
 
-void	fork_assignment(t_philo *philos, t_info *info, pthread_mutex_t *forks, int i)
+void	fork_assignment(t_philo *philos, t_info *info, \
+		pthread_mutex_t *forks, int i)
 {
 	if (i == 0)
 	{

@@ -12,25 +12,25 @@
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_philo philos[MAX_PHILOS];
-    t_info info;
-    pthread_mutex_t forks[MAX_PHILOS];
+	t_philo			philos[MAX_PHILOS];
+	t_info			info;
+	pthread_mutex_t	forks[MAX_PHILOS];
 
-    if (argc < 5 || argc > 6)
-        return (error_msg(1), EXIT_FAILURE);
-    if (input_check(argc, argv) == false)
-        return (EXIT_FAILURE);
-    if ((init_info(&info, philos, argc, argv) == false)
-        || (init_forks(forks, &info) == false))
-        return (EXIT_FAILURE);
-    init_philos(philos, &info, forks);
-    if (threads(&info) == false)
-    {
-        destroy_mutexes(&info, forks);
-        return (EXIT_FAILURE);
-    }
-    destroy_mutexes(&info, forks);
-    return (EXIT_SUCCESS);
+	if (argc < 5 || argc > 6)
+		return (error_msg(1), EXIT_FAILURE);
+	if (input_check(argc, argv) == false)
+		return (EXIT_FAILURE);
+	if ((init_info(&info, philos, argc, argv) == false)
+		|| (init_forks(forks, &info) == false))
+		return (EXIT_FAILURE);
+	init_philos(philos, &info, forks);
+	if (threads(&info) == false)
+	{
+		destroy_mutexes(&info, forks);
+		return (EXIT_FAILURE);
+	}
+	destroy_mutexes(&info, forks);
+	return (EXIT_SUCCESS);
 }

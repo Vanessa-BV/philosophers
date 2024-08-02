@@ -20,10 +20,10 @@ void	one_philo(t_philo *philo)
 	pthread_mutex_unlock(philo->fork1);
 }
 
-void put_forks(t_philo *philo)
+void	put_forks(t_philo *philo)
 {
-    pthread_mutex_unlock(philo->fork1);
-    pthread_mutex_unlock(philo->fork2);
+	pthread_mutex_unlock(philo->fork1);
+	pthread_mutex_unlock(philo->fork2);
 }
 
 void	routine(t_philo *philo)
@@ -40,13 +40,13 @@ void	routine(t_philo *philo)
 		action_msg("is sleeping", philo, philo->id);
 	ft_usleep(philo->info->t_sleep, philo);
 	if (dead_loop(philo) != true)
-	action_msg("is thinking", philo, philo->id);
-	ft_usleep(1, philo); // not sure if necessary
+		action_msg("is thinking", philo, philo->id);
+	ft_usleep(1, philo);
 }
 
-void take_forks(t_philo *philo)
+void	take_forks(t_philo *philo)
 {
-    if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0)
 		ft_usleep(1, philo);
 	pthread_mutex_lock(philo->fork1);
 	if (dead_loop(philo) != true)
