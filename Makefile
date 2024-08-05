@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread #-TSAN_OPTIONS=second_deadlock_stack=1
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 RM = rm -f
 
