@@ -12,6 +12,19 @@
 
 #include "philo.h"
 
+void	set_start_time(t_philo *philo) // new
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->info->numb_philos)
+	{
+		philo[i].start_time = timestamp_in_ms();
+		philo[i].last_meal_time = philo[i].start_time;
+		i++;
+	}
+}
+
 bool	init_info(t_info *info, t_philo *philos, int argc, char **argv)
 {
 	info->numb_philos = ft_atoi(argv[1]);
@@ -30,6 +43,7 @@ bool	init_info(t_info *info, t_philo *philos, int argc, char **argv)
 	info->philos = philos;
 	if (init_mutexes(info) == false)
 		return (error_msg(5), false);
+	info->start_flag = 0;
 	return (true);
 }
 
@@ -83,7 +97,7 @@ void	init_philos(t_philo *philos, t_info *info, pthread_mutex_t *forks)
 	while (i < info->numb_philos)
 	{
 		philos[i].meals_eaten = 0;
-		philos[i].start_time = timestamp_in_ms();
+		philos[i].start_time = 0; // changed this to 0
 		philos[i].last_meal_time = philos[i].start_time;
 		philos[i].id = i + 1;
 		philos[i].info = info;

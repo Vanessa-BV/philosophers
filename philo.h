@@ -45,9 +45,11 @@ typedef struct s_info
 	int						t_sleep;
 	int						numb_of_meals;
 	int						dead_flag;
+	int						start_flag;
 	pthread_mutex_t			output_lock;
 	pthread_mutex_t			dead_lock;
 	pthread_mutex_t			meal_lock;
+	pthread_mutex_t			lock;
 	t_philo					*philos;
 }	t_info;
 
@@ -62,6 +64,7 @@ void	fork_assignment(t_philo *philos, t_info *info, \
 		pthread_mutex_t *forks, int i);
 bool	init_forks(pthread_mutex_t *forks, t_info *info);
 bool	init_info(t_info *info, t_philo *philos, int argc, char **argv);
+void	set_start_time(t_philo *philo);
 
 // Mutexes
 bool	threads(t_info *info);
@@ -74,6 +77,7 @@ void	take_forks(t_philo *philo);
 void	routine(t_philo *philo);
 void	put_forks(t_philo *philo);
 void	one_philo(t_philo *philo);
+void	sleep_first(t_philo *philo);
 
 // Monitor
 void	*monitor(void *arg);

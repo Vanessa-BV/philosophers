@@ -26,12 +26,8 @@ bool	dead_loop(t_philo *philo)
 
 bool	philo_starves(t_philo *philo)
 {
-	long	current_time;
-
-	current_time = timestamp_in_ms();
-	ft_usleep(2, philo);
 	pthread_mutex_lock(philo->meal_lock);
-	if (current_time - philo->last_meal_time >= (long)philo->info->t_die)
+	if (timestamp_in_ms() - philo->last_meal_time >= (long)philo->info->t_die)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
 		return (true);
@@ -52,7 +48,7 @@ bool	dead_flag_check(t_philo *philos)
 			pthread_mutex_lock(&philos->info->dead_lock);
 			philos->info->dead_flag = 1;
 			pthread_mutex_unlock(&philos->info->dead_lock);
-			action_msg("died", &philos[i], philos[i].id);
+			printf("%zu %d has died\n", sim_time(philos->start_time), i + 1);			
 			return (true);
 		}
 		i++;
@@ -87,14 +83,20 @@ bool	all_philos_ate(t_philo *philos)
 
 void	*monitor(void *arg)
 {
-	t_philo	*philos;
+	t_info	*info;
 
-	philos = (t_philo *)arg;
-	while (1)
+	info = (t_info *)arg;
+	pthread_mutex_lock(&info->lock);
+	pthread_mutex_unlock(&info->lock);
+	if (info->numb_of_meals == INT_MAX)
 	{
-		if (all_philos_ate(philos) == true || dead_flag_check(philos) == true)
-			break ;
-		usleep(1000);
+		while (dead_flag_check(info->philos) == false)
+			usleep(500);
+	}
+	else
+	{
+		while (all_philos_ate(info->philos) == false && dead_flag_check(info->philos) == false)
+			usleep(500);
 	}
 	return (NULL);
 }

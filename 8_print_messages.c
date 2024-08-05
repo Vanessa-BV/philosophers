@@ -38,6 +38,7 @@ void	error_msg(int error_number)
 void	action_msg(char *message, t_philo *philos, int id)
 {
 	pthread_mutex_lock(&philos->info->output_lock);
-	printf("%zu %d %s\n", sim_time(philos->start_time), id, message);
+	if (dead_loop(philos) != true)
+		printf("%zu %d %s\n", sim_time(philos->start_time), id, message);
 	pthread_mutex_unlock(&philos->info->output_lock);
 }

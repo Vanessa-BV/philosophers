@@ -26,8 +26,21 @@ void	put_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->fork2);
 }
 
+void	take_forks(t_philo *philo)
+{
+	pthread_mutex_lock(philo->fork1);
+	if (dead_loop(philo) != true)
+		action_msg("has taken a fork", philo, philo->id);
+	pthread_mutex_lock(philo->fork2);
+	if (dead_loop(philo) != true)
+		action_msg("has taken a fork", philo, philo->id);
+}
+
 void	routine(t_philo *philo)
 {
+	int	lifetime;
+
+	take_forks(philo);
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal_time = timestamp_in_ms();
 	philo->meals_eaten++;
@@ -38,26 +51,12 @@ void	routine(t_philo *philo)
 	put_forks(philo);
 	if (dead_loop(philo) != true)
 		action_msg("is sleeping", philo, philo->id);
-	ft_usleep(philo->info->t_sleep, philo);
 	if (dead_loop(philo) != true)
 		action_msg("is thinking", philo, philo->id);
-		// if t_die -  (2 * t_eat) - t_sleep > 0 -> let philo think for this amount (store value in a variable) 
-	ft_usleep(1, philo);
+	ft_usleep(philo->info->t_sleep, philo);
+	pthread_mutex_lock(philo->meal_lock);
+	lifetime = philo->info->t_die - (timestamp_in_ms() - philo->last_meal_time);
+	pthread_mutex_unlock(philo->meal_lock);
+	if (lifetime > philo->info->t_eat)
+		ft_usleep(philo->info->t_eat, philo);
 }
-
-void	take_forks(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-		ft_usleep(1, philo);
-	pthread_mutex_lock(philo->fork1);
-	if (dead_loop(philo) != true)
-		action_msg("has taken a fork", philo, philo->id);
-	pthread_mutex_lock(philo->fork2);
-	if (dead_loop(philo) != true)
-		action_msg("has taken a fork", philo, philo->id);
-	routine(philo);
-}
-
-// implement start mutex (lock this mutex), create each philo and within this philo you lock/unlock that start mutex
-// you only unlock this mutex in the main thread once all philos were created 
-// this way each phlo wil lock and unlock this mutex  
