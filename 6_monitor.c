@@ -49,6 +49,7 @@ bool	dead_flag_check(t_philo *philos)
 	{
 		if (philo_starves(&philos[i]) == true)
 		{
+			ft_usleep(3, philos);
 			pthread_mutex_lock(&philos->info->dead_lock);
 			philos->info->dead_flag = 1;
 			pthread_mutex_unlock(&philos->info->dead_lock);

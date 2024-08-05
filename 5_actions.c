@@ -41,6 +41,7 @@ void	routine(t_philo *philo)
 	ft_usleep(philo->info->t_sleep, philo);
 	if (dead_loop(philo) != true)
 		action_msg("is thinking", philo, philo->id);
+		// if t_die -  (2 * t_eat) - t_sleep > 0 -> let philo think for this amount (store value in a variable) 
 	ft_usleep(1, philo);
 }
 
@@ -56,3 +57,7 @@ void	take_forks(t_philo *philo)
 		action_msg("has taken a fork", philo, philo->id);
 	routine(philo);
 }
+
+// implement start mutex (lock this mutex), create each philo and within this philo you lock/unlock that start mutex
+// you only unlock this mutex in the main thread once all philos were created 
+// this way each phlo wil lock and unlock this mutex  
