@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	set_start_time(t_philo *philo) // new
+void	set_start_time(t_philo *philo)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ void	init_philos(t_philo *philos, t_info *info, pthread_mutex_t *forks)
 	while (i < info->numb_philos)
 	{
 		philos[i].meals_eaten = 0;
-		philos[i].start_time = 0; // changed this to 0
+		philos[i].start_time = 0;
 		philos[i].last_meal_time = philos[i].start_time;
 		philos[i].id = i + 1;
 		philos[i].info = info;

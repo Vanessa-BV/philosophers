@@ -22,7 +22,7 @@ void	*philo_thread(void *arg)
 	{
 		pthread_mutex_unlock(&philo->info->lock);
 		return (NULL);
-	}	
+	}
 	pthread_mutex_unlock(&philo->info->lock);
 	if (philo->info->numb_philos == 1)
 		one_philo(philo);
@@ -31,7 +31,7 @@ void	*philo_thread(void *arg)
 		if (philo->id % 2 == 0)
 		{
 			action_msg("is thinking", philo, philo->id);
-			ft_usleep(philo->info->t_eat / 2, philo); // new
+			ft_usleep(philo->info->t_eat / 2, philo);
 		}
 		while (dead_loop(philo) != true)
 			routine(philo);
@@ -69,10 +69,13 @@ void	destroy_mutexes(t_info *info, pthread_mutex_t *forks)
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&info->meal_lock);
-	pthread_mutex_destroy(&info->dead_lock);
-	pthread_mutex_destroy(&info->output_lock);
-	pthread_mutex_destroy(&info->lock);
+	if (info != NULL)
+	{
+		pthread_mutex_destroy(&info->meal_lock);
+		pthread_mutex_destroy(&info->dead_lock);
+		pthread_mutex_destroy(&info->output_lock);
+		pthread_mutex_destroy(&info->lock);
+	}
 	if (forks != NULL)
 	{
 		while (i < info->numb_philos)
@@ -83,7 +86,21 @@ void	destroy_mutexes(t_info *info, pthread_mutex_t *forks)
 	}
 }
 
-// write join_threads function here
+bool	join_threads(t_info *info, int num_threads)
+{
+	int	j;
+
+	j = 0;
+	while (j < num_threads)
+	{
+		if (pthread_join(info->philos[j].thread, NULL) != 0)
+			return (error_msg(6), false);
+		j++;
+	}
+	if (num_threads == info->numb_philos)
+		return (true);
+	return (false);
+}
 
 bool	threads(t_info *info)
 {
@@ -99,20 +116,12 @@ bool	threads(t_info *info)
 			return (error_msg(4), false);
 		i++;
 	}
-	if (pthread_create(&monitoring, NULL, &monitor, info) != 0) // changed to below
+	if (pthread_create(&monitoring, NULL, &monitor, info) != 0)
 		return (error_msg(4), false);
-	info->start_flag = 1; // new
+	info->start_flag = 1;
 	set_start_time(info->philos);
 	pthread_mutex_unlock(&info->lock);
-	i = 0;
 	if (pthread_join(monitoring, NULL) != 0)
 		return (error_msg(6), false);
-	// return (join_threads());// join all threads that have been created, even if a thread creation has failed
-	while (i < info->numb_philos) 
-	{
-		if (pthread_join(info->philos[i].thread, NULL) != 0)
-			return (error_msg(6), false);
-		i++;
-	}
-	return (true);
+	return (join_threads(info, i));
 }

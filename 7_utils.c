@@ -64,7 +64,7 @@ void	ft_usleep(int ms_for_action, t_philo *philo)
 	long	goal_time;
 
 	goal_time = timestamp_in_ms() + ms_for_action;
-	while (timestamp_in_ms() < goal_time && dead_loop(philo) != true) // changed to <= (added the =)
+	while (timestamp_in_ms() < goal_time && dead_loop(philo) != true)
 		usleep(500);
 }
 
