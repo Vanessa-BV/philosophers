@@ -68,6 +68,7 @@ void	set_start_time(t_philo *philo);
 
 // Mutexes
 bool	threads(t_info *info);
+bool	join_threads(t_info *info, int num_threads);
 void	destroy_mutexes(t_info *info, pthread_mutex_t *forks);
 bool	init_mutexes(t_info *info);
 void	*philo_thread(void *arg);
@@ -77,7 +78,6 @@ void	take_forks(t_philo *philo);
 void	routine(t_philo *philo);
 void	put_forks(t_philo *philo);
 void	one_philo(t_philo *philo);
-void	sleep_first(t_philo *philo);
 
 // Monitor
 void	*monitor(void *arg);

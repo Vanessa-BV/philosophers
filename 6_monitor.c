@@ -48,7 +48,7 @@ bool	dead_flag_check(t_philo *philos)
 			pthread_mutex_lock(&philos->info->dead_lock);
 			philos->info->dead_flag = 1;
 			pthread_mutex_unlock(&philos->info->dead_lock);
-			printf("%zu %d has died\n", \
+			printf("%zu %d died\n", \
 			sim_time(philos->start_time), i + 1);
 			return (true);
 		}

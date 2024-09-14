@@ -99,7 +99,11 @@ bool	join_threads(t_info *info, int num_threads)
 	}
 	if (num_threads == info->numb_philos)
 		return (true);
-	return (false);
+	else
+	{
+		error_msg(4);
+		return (false);
+	}
 }
 
 bool	threads(t_info *info)
@@ -113,7 +117,7 @@ bool	threads(t_info *info)
 	{
 		if (pthread_create(&info->philos[i].thread, NULL, \
 			&philo_thread, &info->philos[i]) != 0)
-			return (error_msg(4), false);
+			return (join_threads(info, i));
 		i++;
 	}
 	if (pthread_create(&monitoring, NULL, &monitor, info) != 0)

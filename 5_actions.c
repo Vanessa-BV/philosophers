@@ -51,9 +51,9 @@ void	routine(t_philo *philo)
 	put_forks(philo);
 	if (dead_loop(philo) != true)
 		action_msg("is sleeping", philo, philo->id);
+	ft_usleep(philo->info->t_sleep, philo);
 	if (dead_loop(philo) != true)
 		action_msg("is thinking", philo, philo->id);
-	ft_usleep(philo->info->t_sleep, philo);
 	pthread_mutex_lock(philo->meal_lock);
 	lifetime = philo->info->t_die - (timestamp_in_ms() - philo->last_meal_time);
 	pthread_mutex_unlock(philo->meal_lock);
